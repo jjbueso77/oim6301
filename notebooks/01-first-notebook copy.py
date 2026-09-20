@@ -49,6 +49,24 @@ def _():
     return (mo,)
 
 
+@app.cell
+def _():
+    1+3 
+    return
+
+
+@app.cell
+def _():
+    print ("hello world!")
+    return
+
+
+@app.cell
+def _():
+    print("Hello, World!")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -121,6 +139,30 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges):
+    print(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[0]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    len(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    sum(freight_charges)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -145,6 +187,58 @@ def _(mo):
     typing inside one cell. Use the **undo** button at the bottom right, which stays
     there until you close the notebook, or `Ctrl+K` and search for undo.*
     """)
+    return
+
+
+@app.cell
+def _():
+    #Predictions
+    return
+
+
+@app.cell
+def _():
+    #if you only change that one in particular using index and run the total print again it should just replace
+    return
+
+
+@app.cell
+def _():
+    #It should give you an error since you deleted the variable
+    return
+
+
+@app.cell
+def _():
+    #It creates a variable named total with a value of one
+    return
+
+
+@app.cell
+def _():
+    #Yes, it would replace the previous value into the sum of the total of the freight charges
+    return
+
+
+@app.cell
+def _():
+    def _():
+        freight_charges = [999.99, 22.25, 25.00, 20.25, 36.25]
+        return freight_charges
+
+
+    _()
+    return
+
+
+@app.cell
+def _():
+    total = 1
+    return (total,)
+
+
+@app.cell
+def _():
     return
 
 
@@ -206,6 +300,64 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges):
+    freight_charges
+    return
+
+
+@app.cell
+def _():
+    #Explore Predictions
+    return
+
+
+@app.cell
+def _():
+    #1: For the first one since it's using negative indexing I belive it will start from the end of the list and work backwards and therefore it should five us 36.25
+    return
+
+
+@app.cell
+def _():
+    #2: It will show 0-2 since it ends in 3 it shows up to 3 but does not display 3
+    return
+
+
+@app.cell
+def _():
+    #3: What they hace in common is that both would display the first number of each list
+    return
+
+
+@app.cell
+def _():
+    #4: It should count the number of characters in Confections
+    return
+
+
+@app.cell
+def _(orders):
+    #5: It should run and give the sum of the total orders
+
+    sum(orders)
+    return
+
+
+@app.cell
+def _(freight_charges, orders):
+    #6: I expect the amount of orders multiplied by 2, and then orders plus the amount of freight charges. 
+
+    orders *2
+    orders + freight_charges
+    return
+
+
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -246,6 +398,21 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    # First one the class is str so i would print back all the digtits of the addition together. 
+    #The second one as well, the first is a float but it is addring a str so it would give an error. 
+
+
+    return
+
+
+@app.cell
+def _():
+    "16.75" + "22.25"
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -277,6 +444,32 @@ def _(mo):
 
     📖 Handbook: Python §3 Expressions and operators
     """)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    #1 Is the first charge above 20?
+
+    freight_charges[0] > 20
+
+    # No its not
+    return
+
+
+@app.cell
+def _(freight_charges):
+    #2 is the last charge the largest?
+    freight_charges[-1] == max(freight_charges)
+    #yes it is
+    return
+
+
+@app.cell
+def _(freight_charges):
+    #3: check the type of either answer with type()
+    type(freight_charges[-1])
+
     return
 
 
@@ -315,6 +508,12 @@ def _(mo):
 
     Your sentence should show `$120.50` and `$24.10`. If it does not, the experiments above left something changed: check that `freight_charges` still starts with `16.75` and that your `total` cell is still there.
     """)
+    return
+
+
+@app.cell
+def _(freight_charges, total):
+    print(f"The total freight is ${total:.2f} and the average charge is ${total / len(freight_charges):.2f}.")
     return
 
 
@@ -368,6 +567,24 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges):
+    below_25 = []
+
+    for item in freight_charges:
+        if item <= 25:
+            below_25.append(item)
+
+    below_25
+    return (below_25,)
+
+
+@app.cell
+def _(below_25):
+    print(f"There are {len(below_25)} charges below or equal to $25, and they add up to ${sum(below_25):.2f}.")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -406,6 +623,24 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    #1: Module not found error, occurs becasue of the typo in the word pandsa instead of pandas
+    return
+
+
+@app.cell
+def _():
+    #2: Does not open because there is no file named sales.csv so it gives a file not found error. 
+    return
+
+
+@app.cell
+def _():
+    #3: Syntax eeror since the bracket was not closed                                                                     
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -415,6 +650,13 @@ def _(mo):
 
     `max(["9.50", "16.75", "22.25"])`
     """)
+    return
+
+
+@app.cell
+def _():
+    max(["9.50", "16.75", "22.25"])
+
     return
 
 
@@ -464,6 +706,14 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    #1: Python names line 3
+    #2: would actually change line 1, because that is where the bad value "pending" appears. Line 3 is where Python discovers the problem, but the real cause is that the list contains a string mixed with numbers.
+    #3: freight_charges = [16.75, 22.25, 0.00, 9.50]
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -490,6 +740,17 @@ def _(mo):
 
     The square brackets inside `_ax.bar(...)` are a **list comprehension**, which **iterates** over `orders` and turns each number into text.
     """)
+    return
+
+
+@app.cell
+def _(freight_charges, orders):
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=(6, 2.6))
+    ax.bar([str(o) for o in orders], freight_charges)
+    ax.set_ylabel("freight")
+    fig
     return
 
 
