@@ -149,6 +149,34 @@ def _(Barca_Numbers):
     return
 
 
+@app.cell
+def _(Barca_Numbers):
+    #8 — f-string
+    f"Messi scored {Barca_Numbers[1]} goals"
+    return
+
+
+@app.cell
+def _(Barca_Numbers):
+    #9 — many values into one number
+    sum(Barca_Numbers)
+    return
+
+
+@app.cell
+def _(Barca_Numbers):
+    #10 — function and argument
+    sorted(Barca_Numbers, reverse=True)
+    return
+
+
+@app.cell
+def _():
+    #11 — erro
+    #Barca_Numbers[100] (index error)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -199,8 +227,28 @@ def _(mo):
 
 @app.cell
 def _():
+    #charges[0]
+    #charges[-1]
+    #charges[5]
+    # index error used hashtag intentionally
+    return
+
+
+@app.cell
+def _():
     charges = [16.75, 22.25, 25.00, 20.25, 36.25]
     charges
+    return (charges,)
+
+
+@app.cell
+def _(charges):
+    total = 0
+    for charge in charges:
+        if charge < 25:
+            total = total + charge
+    total
+
     return
 
 
@@ -252,13 +300,13 @@ def _(mo):
     it, write under the letter, and press `Ctrl+Enter`. Code still goes in cells of your
     own, added with the **+** button.
 
-    **A ·**
+    **A ·** When a score satisfies more than one test, the first condition that comes back true decides what gets printed, because elif stops checking as soon as one match is found, even if a later condition would also have been true.
 
-    **C ·**
+    **C ·** Append always adds exactly one item, whatever you hand it — even if that one item is itself a list, it becomes a single new entry rather than several.
 
-    **D ·**
+    **D ·** tickers.sort() prints None because it sorts the list in place — changing tickers itself and returning nothing — while sorted(tickers) leaves tickers untouched and returns a new sorted list instead.
 
-    **E ·**
+    **E ·** You'd want two names to refer to the same list on purpose when you want a change made through one name to show up when you look through the other — for example, when two parts of a program need to always see the same current, shared list rather than each working from its own separate copy.
     """)
     return
 
@@ -287,11 +335,15 @@ def _(mo):
 
 @app.cell
 def _():
-    score = 95
-    if score >= 60:
-        print("Pass")
-    elif score >= 90:
+    # Going Further
+    score = 55
+
+    if score >= 90:
         print("A")
+    elif score >= 60:
+        print("Pass")
+    else:
+        print("Fail")
     return
 
 
@@ -319,6 +371,35 @@ def _(mo):
 def _():
     statuses = ["shipped", "pending", "shipped", "cancelled", "shipped"]
     statuses
+    return (statuses,)
+
+
+@app.cell
+def _(statuses):
+    shipped_count = 0
+    for status in statuses:
+        if status == "shipped":
+            shipped_count = shipped_count + 1
+    shipped_count
+    return (shipped_count,)
+
+
+@app.cell
+def _(statuses):
+    not_shipped_count = 0
+
+    for status2 in statuses:
+        if status2 != "shipped":
+            not_shipped_count = not_shipped_count + 1
+
+    not_shipped_count
+    return
+
+
+@app.cell
+def _(shipped_count, statuses):
+    shipped_percentage = shipped_count / len(statuses) * 100
+    shipped_percentage
     return
 
 
@@ -346,8 +427,22 @@ def _(mo):
 @app.cell
 def _():
     order_lines = ["notebook", "pen"]
-    order_lines.append(["stapler", "tape"])
+    order_lines.extend(["stapler", "tape"])
     len(order_lines)
+    return (order_lines,)
+
+
+@app.cell
+def _(order_lines):
+    order_lines[2]
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    append() adds one item to a list, even if the item passed to it is another list.
+    """)
     return
 
 
@@ -378,6 +473,20 @@ def _():
     print(sorted(tickers))
     print(tickers.sort())
     tickers
+    return (tickers,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    tickers.sort() prints None because it sorts the original list in place and does not return a new list, while sorted(tickers) returns a new sorted list.
+    """)
+    return
+
+
+@app.cell
+def _(tickers):
+    sorted(tickers, reverse=True)
     return
 
 
@@ -411,9 +520,24 @@ def _(mo):
 @app.cell
 def _():
     prices = [12.50, 8.00, 19.99]
-    sale_prices = prices
+    sale_prices = prices[:]
     sale_prices.append(4.99)
     prices
+    return prices, sale_prices
+
+
+@app.cell
+def _(prices, sale_prices):
+    prices is sale_prices
+    return
+
+
+@app.cell
+def _(sale_prices):
+    #Going Further
+
+    discounted_prices = [round(price * 0.90, 2) for price in sale_prices]
+    discounted_prices
     return
 
 
