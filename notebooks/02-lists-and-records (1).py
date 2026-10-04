@@ -248,7 +248,6 @@ def _(charges):
         if charge < 25:
             total = total + charge
     total
-
     return
 
 
@@ -650,6 +649,19 @@ def _(mo):
     return
 
 
+@app.cell
+def _(first_order):
+    first_order["Freight"]
+
+    return
+
+
+@app.cell
+def _():
+    #The last two fail fail due to the Keyerror
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -739,6 +751,49 @@ def _(mo):
     return
 
 
+@app.cell
+def _(orders):
+    #What is the total freight across all 30 orders?
+
+    total_freight = 0
+    for order in orders:
+        total_freight = total_freight + order["Freight"]
+    total_freight
+
+
+    return
+
+
+@app.cell
+def _(orders):
+    #How many orders have no ShippedDate? 
+
+    count_no_shipped = 0
+
+    for row in orders:
+        if row["ShippedDate"] is None:
+            count_no_shipped += 1
+
+    count_no_shipped
+    return
+
+
+@app.cell
+def _(orders):
+    #Which order has the largest freight, and what is it?
+    max_freight = 0
+    max_order = None
+
+    for row2 in orders:
+        if row2["Freight"] > max_freight:
+            max_freight = row2["Freight"]
+            max_order = row2["OrderID"]
+
+    max_order, max_freight
+
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -761,8 +816,7 @@ def _(mo):
     mo.md(r"""
     *One row is ...*
 
-    *(Replace this line with your own sentence. If this cell shows you code instead of
-    text, use the cell menu to turn it into a markdown cell.)*
+    *One row is one customer order placed with the company.*
     """)
     return
 
@@ -789,6 +843,16 @@ def _(mo):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    1. For each holding, multiply the number of shares by the price per share to find the value of that holding.
+    Then add the values of all six holdings together.
+    The final sum is the total cost of buying the entire portfolio.
+    """)
+    return
+
+
 @app.cell
 def _():
     portfolio = [
@@ -800,6 +864,48 @@ def _():
         {"Symbol": "TSLA", "Shares": 150, "Price": 255.70},
     ]
     portfolio
+    return (portfolio,)
+
+
+@app.cell
+def _(portfolio):
+    #2
+    total_cost = 0
+    for holding in portfolio:
+        total_cost = total_cost + holding["Shares"] * holding["Price"]
+    total_cost
+
+    return
+
+
+@app.cell
+def _():
+    #3: total cost = 0 because thats the starting value before adding each holding correct
+    return
+
+
+@app.cell
+def _():
+    weekly_orders = [
+        {"Item": "Latte", "Quantity": 40, "UnitPrice": 4.50},
+        {"Item": "Espresso", "Quantity": 25, "UnitPrice": 3.00},
+        {"Item": "Croissant", "Quantity": 60, "UnitPrice": 2.75},
+        {"Item": "Muffin", "Quantity": 35, "UnitPrice": 3.25},
+        {"Item": "Bagel", "Quantity": 20, "UnitPrice": 2.50},
+    ]
+
+    weekly_orders
+    return (weekly_orders,)
+
+
+@app.cell
+def _(weekly_orders):
+    weekly_total = 0
+
+    for item2 in weekly_orders:
+        weekly_total += item2["Quantity"] * item2["UnitPrice"]
+
+    weekly_total
     return
 
 
