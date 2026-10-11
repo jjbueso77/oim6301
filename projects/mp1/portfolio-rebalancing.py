@@ -105,8 +105,18 @@ def _(mo):
 
 @app.cell
 def _():
-    # Your inputs.
-    return
+    holdings = [
+        ("AAPL", 100, 173.93),
+        ("MSFT", 50, 319.53),
+        ("GOOG", 80, 131.36),
+        ("AMZN", 200, 129.33),
+        ("NVDA", 20, 410.17),
+        ("TSLA", 150, 255.70),
+    ]
+    cash = 5000.00
+    target_weights = {"AAPL": 0.20, "MSFT": 0.20, "GOOG": 0.15,
+                      "AMZN": 0.15, "NVDA": 0.15, "TSLA": 0.15}# Your inputs.
+    return cash, holdings, target_weights
 
 
 @app.cell(hide_code=True)
@@ -120,8 +130,58 @@ def _(mo):
 
 
 @app.cell
-def _():
-    return
+def _(cash, holdings):
+    # Total Portfolio Value
+
+    total_value = cash
+    for ticker, shares, price in holdings:
+        total_value = total_value + shares * price
+
+    total_value
+    return (total_value,)
+
+
+@app.cell
+def _(holdings, target_weights, total_value):
+
+    results = []
+    invested_value = 0
+
+    for stock_ticker, stock_shares, stock_price in holdings:
+        weight = target_weights[stock_ticker]
+        target_dollars = total_value * weight
+        target_shares = int(target_dollars // stock_price)
+        trade = target_shares - stock_shares
+        value_after = target_shares * stock_price
+        invested_value = invested_value + value_after
+        weight_after = value_after / total_value
+
+        row = {
+            "ticker": stock_ticker,
+            "shares_now": stock_shares,
+            "shares_target": target_shares,
+            "trade": trade,
+            "value_after": value_after,
+            "weight_after": weight_after
+        }
+
+        results.append(row)
+
+    cash_left = total_value - invested_value
+    cash_weight = cash_left / total_value
+
+    results.append({
+        "ticker": "CASH",
+        "shares_now": None,
+        "shares_target": None,
+        "trade": None,
+        "value_after": cash_left,
+        "weight_after": cash_weight
+    })
+
+    print(f"Cash remaining: ${cash_left:,.2f}")
+
+    return cash_left, results
 
 
 @app.cell(hide_code=True)
@@ -135,7 +195,21 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(cash_left, results):
+
+    print(f"{'Ticker':<8} {'Now':>8} {'Target':>8} {'Trade':>8} {'Value After':>16} {'Weight':>9}")
+    print("-" * 65)
+
+    for answer_row in results:
+        if answer_row["shares_now"] is None:
+            print(f"{'CASH':<8} {'-':>8} {'-':>8} {'-':>8} ${answer_row['value_after']:>14,.2f} {answer_row['weight_after']*100:>8.1f}%")
+        else:
+            print(f"{answer_row['ticker']:<8} {answer_row['shares_now']:>8} {answer_row['shares_target']:>8} {answer_row['trade']:>+8} ${answer_row['value_after']:>14,.2f} {answer_row['weight_after']*100:>8.1f}%")
+
+    print()
+    print(f"Cash remaining: ${cash_left:,.2f}")
+
+
     return
 
 
@@ -150,7 +224,14 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(cash_left, results, total_value):
+    value_after_total = cash_left
+    for check_row in results:
+        if check_row["shares_now"] is not None:
+            value_after_total = value_after_total + check_row["value_after"]
+
+    print(f"Total before: ${total_value:,.2f}")
+    print(f"Total after:  ${value_after_total:,.2f}")
     return
 
 
@@ -169,10 +250,90 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    When I was working on Section 4, the AI gave me code that reused variables like `ticker`, `shares`, and `price` from another cell. Marimo wouldn't run it because those variables were already defined. I changed their names to `stock_ticker`, `stock_shares`, and `stock_price`, and that fixed the issue.
+
+    I also had a problem in Section 5 because the AI included explanations and Markdown inside a Python code cell. I removed that extra text and kept only the Python code.
+
+    I knew what needed to be changed because Marimo showed error messages, and I used those messages to identify the problems. After making the changes, I checked that the code ran and produced the portfolio results.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## 8. Going Further
 
     *Take at least one step past the main task, in any direction, and use your agent as much as you like. It does not have to work. State what you tried, what you found, and where it is in this notebook.*
     """)
+    return
+
+
+@app.cell
+def _(holdings, target_weights, total_value):
+    trade_fee = 5.00
+    min_trade_value = 500
+
+    results_fees = []
+    invested_value_fees = 0
+    total_fees = 0
+
+    for fee_ticker, fee_shares, fee_price in holdings:
+        fee_weight = target_weights[fee_ticker]
+        fee_target_dollars = total_value * fee_weight
+        fee_target_shares = int(fee_target_dollars // fee_price)
+        fee_trade = fee_target_shares - fee_shares
+        trade_value = abs(fee_trade) * fee_price
+
+        if trade_value < min_trade_value:
+            final_shares = fee_shares
+            executed_trade = 0
+        else:
+            final_shares = fee_target_shares
+            executed_trade = fee_trade
+            total_fees = total_fees + trade_fee
+
+        value_after_fee = final_shares * fee_price
+        invested_value_fees = invested_value_fees + value_after_fee
+
+        row_fee = {
+            "ticker": fee_ticker,
+            "shares_now": fee_shares,
+            "shares_target": fee_target_shares,
+            "trade": executed_trade,
+            "value_after": value_after_fee,
+        }
+        results_fees.append(row_fee)
+
+    cash_left_fees = total_value - invested_value_fees - total_fees
+    total_value_after_fees = invested_value_fees + cash_left_fees
+
+
+
+    return cash_left_fees, results_fees, total_fees, total_value_after_fees
+
+
+@app.cell
+def _(
+    cash_left_fees,
+    results_fees,
+    target_weights,
+    total_fees,
+    total_value_after_fees,
+):
+    print(f"{'Ticker':<8} {'Trade':>8} {'Value After':>16} {'Weight':>9} {'Target':>8} {'Gap (pts)':>10}")
+    print("-" * 70)
+
+    for fee_row in results_fees:
+        weight_after_fee = fee_row["value_after"] / total_value_after_fees
+        target = target_weights[fee_row["ticker"]]
+        gap = abs(weight_after_fee - target) * 100
+        print(f"{fee_row['ticker']:<8} {fee_row['trade']:>+8} ${fee_row['value_after']:>14,.2f} "
+              f"{weight_after_fee*100:>8.1f}% {target*100:>7.1f}% {gap:>9.2f}")
+
+    print()
+    print(f"Total fees paid: ${total_fees:,.2f}")
+    print(f"Cash remaining: ${cash_left_fees:,.2f}")
     return
 
 
