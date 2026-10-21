@@ -75,16 +75,13 @@ def _(mo):
     return
 
 
+@app.function
+def add_tax(amount):
+    return round(amount * 1.0625, 2)
+
+
 @app.cell
 def _():
-    def add_tax(amount):
-        return round(amount * 1.0625, 2)
-
-    return (add_tax,)
-
-
-@app.cell
-def _(add_tax):
     add_tax(100)
     return
 
@@ -119,19 +116,16 @@ def _(mo):
     return
 
 
-@app.cell
-def _():
-    def compute_cost(portfolio):
-        cost_so_far = 0
-        for symbol, shares, price in portfolio:
-            cost_so_far = cost_so_far + shares * price
-        return round(cost_so_far, 2)
-
-    return (compute_cost,)
+@app.function
+def compute_cost(portfolio):
+    cost_so_far = 0
+    for symbol, shares, price in portfolio:
+        cost_so_far = cost_so_far + shares * price
+    return round(cost_so_far, 2)
 
 
 @app.cell
-def _(holdings, compute_cost):
+def _(holdings):
     compute_cost(holdings)
     return
 
@@ -156,7 +150,7 @@ def _():
 
 
 @app.cell
-def _(compute_cost, retirement_holdings):
+def _(retirement_holdings):
     compute_cost(retirement_holdings)
     return
 
@@ -458,6 +452,55 @@ def _(mo):
     **The server has to know who sent it.** A request can carry **headers**, lines that travel beside the address. Here the header `x-token` holds your GitHub username, and the board shows your first name. Your username is public, so it can sit in a cell. A real API's key goes in a header the same way, but a key is a secret and never goes in a cell: [Mini Project 2](/assignments/mini-project-2/) says where to keep one.
 
     **The message goes in the body.** `json=` puts it there, which is where a POST carries its data. `params=` puts values in the address, which is for asking.
+    """)
+    return
+
+
+@app.cell
+def _():
+    import requests
+
+    # Step 1: Look up Newton
+    response = requests.get(
+        "https://oim.zhili.dev/ma/towns",
+        params={"name": "Newton"},
+        timeout=10
+    )
+
+    town = response.json()["items"][0]
+
+    town_name = town["name"]
+    town_bill = town["average_single_family_bill_dollars"]
+
+    print(town_name, town_bill)
+
+    # Step 2: Post to the board
+    board_reply = requests.post(
+        "https://oim.zhili.dev/message",
+        headers={"x-token": "jjbueso77"},
+        json={"message": f"{town_name}: ${town_bill:,}"},
+        timeout=10
+    )
+
+    print("POST status:", board_reply.status_code)
+    print("Server response:", board_reply.json())
+
+    # Step 3: Try without the header
+    board_reply_no_header = requests.post(
+        "https://oim.zhili.dev/message",
+        json={"message": f"{town_name}: ${town_bill:,}"},
+        timeout=10
+    )
+
+    print("Without header:", board_reply_no_header.status_code)
+    print("Server response:", board_reply_no_header.text)
+    return (requests,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The server returned a 401 error because I removed the x-token header. It needs my GitHub username to identify who is sending the message and post it under the correct student.
     """)
     return
 
