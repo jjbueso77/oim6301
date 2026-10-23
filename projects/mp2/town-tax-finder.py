@@ -115,7 +115,7 @@ def _(county, requests):
     print("Towns collected:", len(towns))
 
 
-    return (towns,)
+    return get_towns, towns
 
 
 @app.cell
@@ -310,6 +310,81 @@ def _(mo):
     The get_tax_history function takes a town's code and a year. It uses those to get the property tax information for that town and returns the data I need.
 
     Prediction: I think that if I lower the property tax limit from $8,000 to $6,000, fewer towns will qualify since they have to meet a lower limit. Right now 12 towns qualify, but I think that number will drop to 5.
+    """)
+    return
+
+
+@app.cell
+def _(budget_dollars, sorted_towns, tax_records):
+    # Test my prediction with a lower tax limit
+    test_limit = 6000
+    test_towns = []
+
+    for _town_test in tax_records:
+        if _town_test["average_home_value"] <= budget_dollars:
+            if _town_test["average_tax_bill"] <= test_limit:
+                test_towns.append(_town_test)
+
+    print("Original qualifying towns:", len(sorted_towns))
+    print("Qualifying towns with $6,000 limit:", len(test_towns))
+    print("My prediction was 5 towns.")
+    print("Prediction correct:", len(test_towns) == 5)
+
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    After lowering the property tax limit from $8,000 to $6,000, the number of towns that qualified dropped from 12 to 5, just like I predicted. This shows that the filtering works because changing the tax limit changes which towns meet the requirements.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # 9. Going Further
+    """)
+    return
+
+
+@app.cell
+def _(get_towns):
+    #Try another county
+    new_county = "Norfolk"
+
+    new_towns = get_towns(new_county)
+
+    print("County:", new_county)
+    print("Towns collected:", len(new_towns))
+
+    for _new_town in new_towns[:5]:
+        print(_new_town["name"])
+
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    For Going Further, I wanted to see if I could use the same function with another county instead of Middlesex. I tried Norfolk County, and the function gave me 28 towns. I didn't have to change the function itself, just the county name. This shows that I can reuse the same code for different counties in Massachusetts.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # 10. Time Spent
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    I spent approximately 3 hours working on Mini Project 2 outside of class. Most of my time went into writing and testing the code, fixing errors, and checking that the results were correct.
     """)
     return
 
