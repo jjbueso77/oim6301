@@ -134,10 +134,10 @@ def _(Barca_Numbers):
 @app.cell
 def _(Barca_Numbers):
     #6: Loop
-    total = 0
+    _total = 0
     for number in Barca_Numbers:
-        total = total + number
-    total
+        _total = _total + number
+    _total
     return
 
 
@@ -243,11 +243,11 @@ def _():
 
 @app.cell
 def _(charges):
-    total = 0
+    total3 = 0
     for charge in charges:
         if charge < 25:
-            total = total + charge
-    total
+            total3 = total3 + charge
+    total3
     return
 
 
