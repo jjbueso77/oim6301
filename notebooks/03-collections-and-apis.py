@@ -10,7 +10,7 @@
 
 import marimo
 
-__generated_with = "0.25.1"
+__generated_with = "0.24.2"
 app = marimo.App(width="medium", sql_output="polars")
 
 
@@ -161,9 +161,29 @@ def _(mo):
 
     **C ·**
 
+    1. The lines on one order, which the customer can add to, remove from and reorder
+
+    This would be a list because the customer can add, remove, and rearrange items in the order.
+
+    2. Every customer who has ordered from you this year, each once
+
+    This would be a set because we only need each customer once, and sets don't allow duplicates.
+
+    3. The units sold of each product, looked up by product name
+
+    This would be a dictionary because we can use the product name as the key to look up how many units were sold.
+
+    4. One shipment's carrier, tracking number and ship date, which must not change once recorded
+
+    This would be a tuple because the shipment information should stay the same once it's recorded.
+
     **D ·**
 
+    I would rather use a list of dictionaries because each value has a clear name, such as ticker, shares, and price. This makes the code easier for me to read and understand.
+
     **G ·**
+
+    The first result was Babson Park, Florida, not Babson College in Massachusetts. This shows that always using `[0]` can be misleading because the first result might not be the location we're actually looking for. We should check the state and other information before using the result.
     """)
     return
 
@@ -198,7 +218,6 @@ def _():
 def _(closing_prices):
     #1
     closing_prices["AAPL"]
-
     return
 
 
@@ -507,6 +526,36 @@ def _():
         ("TSLA", 150, 255.70),
     ]
     holdings
+    return (holdings,)
+
+
+@app.cell
+def _(holdings):
+
+    portfolio_cost = 0
+
+    for _symbol, _shares, _price in holdings:
+        portfolio_cost = portfolio_cost + _shares * _price
+
+    print(f"Total portfolio cost: ${portfolio_cost:,.2f}")
+
+    return
+
+
+@app.cell
+def _(holdings):
+    holding_costs = {}
+    for _symbol, _shares, _price in holdings:
+        holding_costs[_symbol] = _shares * _price
+
+    biggest_ticker = ""
+    biggest_cost = 0
+    for _ticker, _cost in holding_costs.items():
+        if _cost > biggest_cost:
+            biggest_cost = _cost
+            biggest_ticker = _ticker
+
+    biggest_ticker, biggest_cost
     return
 
 
@@ -701,12 +750,37 @@ def _(mo):
     return
 
 
+@app.cell
+def _(babson_weather):
+    f"The wind speed is {babson_weather['current']['wind_speed_10m']} {babson_weather['current_units']['wind_speed_10m']}"
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     **F · Another town.** Search for `Wellesley` the way the misspelled search did, with the correct spelling. Take the first place out of `results`, then its `latitude`, `longitude` and `admin1`. *Check yourself: latitude 42.29649, in Massachusetts.*
     """)
     return
+
+
+@app.cell
+def _(requests):
+    wellesley_reply = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search?name=Wellesley&count=1",
+        timeout=10,
+    )
+
+    wellesley_reply.status_code
+    wellesley_data = wellesley_reply.json()
+
+    wellesley_first = wellesley_data["results"][0]
+
+    print("Latitude:", wellesley_first["latitude"])
+    print("Longitude:", wellesley_first["longitude"])
+    print("State:", wellesley_first["admin1"])
+
+    return (wellesley_first,)
 
 
 @app.cell(hide_code=True)
@@ -716,6 +790,52 @@ def _(mo):
 
     **Going further.** Use F's coordinates to ask for Wellesley's current temperature. Build the address with an f-string, so that changing the town changes the forecast.
     """)
+    return
+
+
+@app.cell
+def _(requests):
+    babson_park_reply = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search?name=Babson%20Park&count=5",
+        timeout=10
+    )
+
+    babson_park_data = babson_park_reply.json()
+
+    babson_park_first = babson_park_data["results"][0]
+
+    print("Place:", babson_park_first["name"])
+    print("State:", babson_park_first["admin1"])
+    print("Country:", babson_park_first["country"])
+
+    return
+
+
+@app.cell
+def _(requests, wellesley_first):
+
+    # Use Wellesley's coordinates from exercise F
+    _wellesley_lat = wellesley_first["latitude"]
+    _wellesley_lon = wellesley_first["longitude"]
+
+    # Build the weather URL using an f-string
+    wellesley_weather_url = (
+        f"https://api.open-meteo.com/v1/forecast?"
+        f"latitude={_wellesley_lat}&longitude={_wellesley_lon}"
+        f"&current=temperature_2m"
+        f"&temperature_unit=fahrenheit"
+    )
+
+    # Get the weather data
+    wellesley_weather_reply = requests.get(wellesley_weather_url, timeout=10)
+    wellesley_weather_data = wellesley_weather_reply.json()
+
+    # Display the temperature and unit
+    _wellesley_temp = wellesley_weather_data["current"]["temperature_2m"]
+    _wellesley_unit = wellesley_weather_data["current_units"]["temperature_2m"]
+
+    print(f"The current temperature in Wellesley is {_wellesley_temp}{_wellesley_unit}.")
+
     return
 
 
