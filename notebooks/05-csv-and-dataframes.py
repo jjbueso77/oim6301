@@ -374,6 +374,43 @@ def _(mo):
     return
 
 
+@app.cell
+def _(ma_counties, pl, town_table):
+    town_counts = (
+        town_table
+        .group_by("county")
+        .agg(pl.len().alias("towns"))
+        .sort("county")
+    )
+
+    server_counts = pl.DataFrame(ma_counties).select(
+        "name", "towns"
+    ).sort("name")
+
+    print(town_counts)
+    print(server_counts)
+
+    return
+
+
+@app.cell
+def _(pl, town_table):
+    highest_bills = (
+        town_table
+        .filter(pl.col("population") > 50000)
+        .sort("average_single_family_bill_dollars", descending=True)
+        .head(5)
+    )
+
+    highest_bills.select(
+        "name",
+        "population",
+        "average_single_family_bill_dollars"
+    )
+
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -417,6 +454,41 @@ def _(mo):
 
     **Going further.** Write a SQL query of your own on `town_table`, and check its answer in polars.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    If we increase the minimum average home value from $1 million to $2 million, the number of qualifying towns can only stay the same or decrease. None of the counties can gain towns because we're making the requirement higher.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo, town_table):
+    _df = mo.sql(
+        f"""
+        SELECT county, COUNT(*) AS towns
+        FROM town_table
+        WHERE average_single_family_value_dollars >= 2000000
+        GROUP BY county
+        ORDER BY towns DESC
+
+        """
+    )
+    return
+
+
+@app.cell
+def _(pl, town_table):
+    (
+        town_table.filter(pl.col("average_single_family_value_dollars") >= 2000000)
+        .group_by("county")
+        .agg(pl.len().alias("towns"))
+        .sort("towns", descending=True)
+    )
+
     return
 
 
@@ -470,6 +542,31 @@ def _(mo):
 
     **Going further.** Color the bars or dots by a column with `color=`, and explain what the colors add.
     """)
+    return
+
+
+@app.cell
+def _(alt, mo, town_table):
+    top_10_bills = (
+        town_table
+        .sort("average_single_family_bill_dollars", descending=True)
+        .head(10)
+    )
+
+    tax_bill_chart = mo.ui.altair_chart(
+        top_10_bills.plot.bar(
+            y=alt.Y("name", sort="-x", title="Town"),
+            x=alt.X(
+                "average_single_family_bill_dollars",
+                title="Average single-family tax bill ($)"
+            )
+        ).properties(
+            title="10 Massachusetts Towns with the Highest Average Property Tax Bills"
+        )
+    )
+
+    tax_bill_chart
+
     return
 
 
