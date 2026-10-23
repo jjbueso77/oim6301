@@ -9,7 +9,7 @@
 
 import marimo
 
-__generated_with = "0.25.1"
+__generated_with = "0.24.2"
 app = marimo.App(width="medium", sql_output="polars")
 
 
@@ -134,10 +134,11 @@ def _(cash, holdings):
     # Total Portfolio Value
 
     total_value = cash
-    for ticker, shares, price in holdings:
-        total_value = total_value + shares * price
+    for _ticker, _shares, _price in holdings:
+        total_value = total_value + _shares * _price
 
     total_value
+
     return (total_value,)
 
 
@@ -180,7 +181,6 @@ def _(holdings, target_weights, total_value):
     })
 
     print(f"Cash remaining: ${cash_left:,.2f}")
-
     return cash_left, results
 
 
@@ -195,21 +195,42 @@ def _(mo):
 
 
 @app.cell
-def _(cash_left, results):
+def _(cash_left, results, target_weights):
 
-    print(f"{'Ticker':<8} {'Now':>8} {'Target':>8} {'Trade':>8} {'Value After':>16} {'Weight':>9}")
-    print("-" * 65)
+    print(f"{'Ticker':<8} {'Now':>8} {'Target':>8} {'Trade':>8} {'Value After':>16} {'Weight':>9} {'Goal':>9} {'Gap (pts)':>11}")
+    print("-" * 90)
+
+    largest_gap = 0
+    largest_ticker = ""
 
     for answer_row in results:
         if answer_row["shares_now"] is None:
-            print(f"{'CASH':<8} {'-':>8} {'-':>8} {'-':>8} ${answer_row['value_after']:>14,.2f} {answer_row['weight_after']*100:>8.1f}%")
+            print(f"{'CASH':<8} {'-':>8} {'-':>8} {'-':>8} {answer_row['value_after']:>16,.2f} {answer_row['weight_after']*100:>8.2f}%")
         else:
-            print(f"{answer_row['ticker']:<8} {answer_row['shares_now']:>8} {answer_row['shares_target']:>8} {answer_row['trade']:>+8} ${answer_row['value_after']:>14,.2f} {answer_row['weight_after']*100:>8.1f}%")
+            ticker = answer_row["ticker"]
+            target = target_weights[ticker]
+            gap = abs(answer_row["weight_after"] - target) * 100
+
+            if gap > largest_gap:
+                largest_gap = gap
+                largest_ticker = ticker
+
+            print(f"{ticker:<8} {answer_row['shares_now']:>8} {answer_row['shares_target']:>8} {answer_row['trade']:>8} {answer_row['value_after']:>16,.2f} {answer_row['weight_after']*100:>8.2f}% {target*100:>8.2f}% {gap:>11.2f}")
 
     print()
     print(f"Cash remaining: ${cash_left:,.2f}")
+    print(f"Largest gap: {largest_ticker}, {largest_gap:.2f} percentage points")
 
 
+
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    After rebalancing, the portfolio is very close to its target allocations. Microsoft (MSFT) has the largest difference at 0.24 percentage points below its 20% target. All the other stocks are even closer to their targets. I would consider these differences acceptable because we can only buy and sell whole shares, making it difficult to match the exact percentages.
+    """)
     return
 
 
@@ -232,6 +253,14 @@ def _(cash_left, results, total_value):
 
     print(f"Total before: ${total_value:,.2f}")
     print(f"Total after:  ${value_after_total:,.2f}")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    To check my results, I compared the total portfolio value before and after rebalancing, including the remaining cash. Both calculations gave me $121,302.70, confirming that no money was lost or added during the trades. This makes sense because the exercise assumes there are no trading fees.
+    """)
     return
 
 
@@ -307,7 +336,6 @@ def _(holdings, target_weights, total_value):
 
     cash_left_fees = total_value - invested_value_fees - total_fees
     total_value_after_fees = invested_value_fees + cash_left_fees
-
 
 
     return cash_left_fees, results_fees, total_fees, total_value_after_fees
