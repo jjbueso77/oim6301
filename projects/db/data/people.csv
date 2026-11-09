@@ -1,0 +1,26 @@
+person_id,first_name,last_name,email,title,start_date,manager_id
+1,Alex,Smith,alex.smith@babsonai.com,Founder,2023-01-26,
+2,Jordan,Johnson,jordan.johnson@babsonai.com,Founder,2023-02-20,
+3,Taylor,Brown,taylor.brown@babsonai.com,Data Analyst,2023-03-17,1
+4,Morgan,Davis,morgan.davis@babsonai.com,Designer,2023-04-11,1
+5,Casey,Wilson,casey.wilson@babsonai.com,Engineer,2023-05-06,2
+6,Jamie,Miller,jamie.miller@babsonai.com,Data Analyst,2023-05-31,5
+7,Avery,Anderson,avery.anderson@babsonai.com,Data Analyst,2023-06-25,5
+8,Riley,Thomas,riley.thomas@babsonai.com,Project Manager,2023-07-20,1
+9,Cameron,Moore,cameron.moore@babsonai.com,Data Analyst,2023-08-14,1
+10,Drew,Martin,drew.martin@babsonai.com,Engineer,2023-09-08,2
+11,Sam,Lee,sam.lee@babsonai.com,Data Analyst,2023-10-03,5
+12,Charlie,White,charlie.white@babsonai.com,Engineer,2023-10-28,5
+13,Robin,Clark,robin.clark@babsonai.com,Project Manager,2023-11-22,2
+14,Parker,Lewis,parker.lewis@babsonai.com,Project Manager,2023-12-17,5
+15,Quinn,Walker,quinn.walker@babsonai.com,Designer,2024-01-11,1
+16,Blake,Hall,blake.hall@babsonai.com,Engineer,2024-02-05,4
+17,Reese,Young,reese.young@babsonai.com,Designer,2024-03-01,3
+18,Logan,Allen,logan.allen@babsonai.com,Engineer,2024-03-26,2
+19,Skyler,King,skyler.king@babsonai.com,Designer,2024-04-20,1
+20,Hayden,Wright,hayden.wright@babsonai.com,Data Analyst,2024-05-15,4
+21,Emerson,Scott,emerson.scott@babsonai.com,Data Analyst,2024-06-09,3
+22,Rowan,Green,rowan.green@babsonai.com,Designer,2024-07-04,5
+23,Finley,Baker,finley.baker@babsonai.com,Designer,2024-07-29,1
+24,Dakota,Adams,dakota.adams@babsonai.com,Project Manager,2024-08-23,5
+25,Elliot,Nelson,elliot.nelson@babsonai.com,Data Analyst,2024-09-17,4

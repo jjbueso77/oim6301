@@ -1,0 +1,13 @@
+project_id,project_name,client_name,category,budget,start_date,status
+1,Customer Chatbot,Client 1,LLM app,194714,2025-11-08,paused
+2,Sales Dashboard,Client 2,internal tool,144800,2025-12-02,active
+3,Inventory AI,Client 3,internal tool,68233,2025-12-26,planned
+4,Marketing Assistant,Client 4,internal tool,109742,2026-01-19,paused
+5,Document Search,Client 5,LLM app,111024,2026-02-12,planned
+6,Data Pipeline,Client 6,data pipeline,122869,2026-03-08,done
+7,Customer Analytics,Client 7,internal tool,145638,2026-04-01,active
+8,Recommendation Tool,Client 8,data pipeline,143132,2026-04-25,active
+9,Support Bot,Client 9,internal tool,119986,2026-05-19,planned
+10,Financial Forecasting,Client 10,internal tool,94862,2026-06-12,active
+11,Internal Reporting,,LLM app,171178,2026-07-06,done
+12,HR Assistant,,data pipeline,196001,2026-07-30,active

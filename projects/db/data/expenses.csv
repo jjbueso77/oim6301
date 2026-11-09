@@ -1,0 +1,161 @@
+expense_id,project_id,expense_date,amount,category,note
+1,1,2026-09-06,234.81,GPU cloud,Project expense 1
+2,2,2026-05-09,1208.18,GPU cloud,Project expense 2
+3,3,2026-01-24,984.97,software,Project expense 3
+4,4,2026-02-27,1647.2,GPU cloud,Project expense 4
+5,5,2026-10-29,1022.76,GPU cloud,Project expense 5
+6,6,2026-07-01,2281.72,data labeling,Project expense 6
+7,7,2026-06-22,1552.01,data labeling,Project expense 7
+8,8,2026-05-10,1181.26,software,Project expense 8
+9,9,2026-06-09,1310.92,data labeling,Project expense 9
+10,10,2026-06-22,694.58,travel,Project expense 10
+11,1,2026-06-20,1357.76,data labeling,Project expense 11
+12,2,2026-06-06,994.84,software,Project expense 12
+13,3,2026-07-12,1081.05,software,Project expense 13
+14,4,2026-02-14,1994.14,software,Project expense 14
+15,5,2026-03-17,891.26,travel,Project expense 15
+16,6,2026-05-19,704.79,data labeling,Project expense 16
+17,7,2026-06-25,295.6,data labeling,Project expense 17
+18,8,2026-07-23,844.56,travel,Project expense 18
+19,9,2026-06-21,1528.1,GPU cloud,Project expense 19
+20,10,2026-08-30,1441.41,software,Project expense 20
+21,1,2026-01-12,1708.28,GPU cloud,Project expense 21
+22,2,2026-10-28,1709.09,software,Project expense 22
+23,3,2026-01-04,970.23,data labeling,Project expense 23
+24,4,2026-05-08,920.16,travel,Project expense 24
+25,5,2026-05-21,643.7,data labeling,Project expense 25
+26,6,2026-04-16,285.2,GPU cloud,Project expense 26
+27,7,2026-08-08,1950.1,GPU cloud,Project expense 27
+28,8,2026-10-11,908.23,data labeling,Project expense 28
+29,9,2026-10-18,1004.13,data labeling,Project expense 29
+30,10,2026-07-28,2095.23,data labeling,Project expense 30
+31,1,2026-06-20,204.86,software,Project expense 31
+32,2,2026-04-02,2427.01,software,Project expense 32
+33,3,2026-08-12,661.61,data labeling,Project expense 33
+34,4,2026-06-26,2417.43,travel,Project expense 34
+35,5,2026-05-22,982.82,travel,Project expense 35
+36,6,2026-07-04,1946.65,travel,Project expense 36
+37,7,2026-08-07,1365.9,data labeling,Project expense 37
+38,8,2026-06-15,2023.02,data labeling,Project expense 38
+39,9,2026-07-22,225.23,travel,Project expense 39
+40,10,2026-09-15,1430.9,GPU cloud,Project expense 40
+41,1,2026-11-07,2130.14,GPU cloud,Project expense 41
+42,2,2026-04-26,301.3,data labeling,Project expense 42
+43,3,2026-05-14,1178.37,data labeling,Project expense 43
+44,4,2026-08-30,320.11,data labeling,Project expense 44
+45,5,2026-09-30,2223.11,GPU cloud,Project expense 45
+46,6,2026-06-22,227.82,software,Project expense 46
+47,7,2026-05-31,1026.8,GPU cloud,Project expense 47
+48,8,2026-07-29,638.89,software,Project expense 48
+49,9,2026-06-13,2114.02,software,Project expense 49
+50,10,2026-07-19,430.24,software,Project expense 50
+51,1,2026-07-07,1770.57,data labeling,Project expense 51
+52,2,2026-07-30,1176.64,GPU cloud,Project expense 52
+53,3,2026-02-04,145.61,data labeling,Project expense 53
+54,4,2026-04-05,1417.13,travel,Project expense 54
+55,5,2026-04-09,1962.81,data labeling,Project expense 55
+56,6,2026-05-24,392.44,data labeling,Project expense 56
+57,7,2026-07-17,1633.48,travel,Project expense 57
+58,8,2026-05-11,366.06,travel,Project expense 58
+59,9,2026-10-18,1386.53,data labeling,Project expense 59
+60,10,2026-07-18,799.05,GPU cloud,Project expense 60
+61,1,2026-09-18,946.76,travel,Project expense 61
+62,2,2026-03-07,1694.49,GPU cloud,Project expense 62
+63,3,2026-09-20,2439.17,GPU cloud,Project expense 63
+64,4,2026-10-15,1405.8,GPU cloud,Project expense 64
+65,5,2026-08-30,2196.0,GPU cloud,Project expense 65
+66,6,2026-08-17,1028.52,software,Project expense 66
+67,7,2026-06-04,1893.56,software,Project expense 67
+68,8,2026-05-12,927.53,GPU cloud,Project expense 68
+69,9,2026-10-14,1864.45,software,Project expense 69
+70,10,2026-07-16,206.41,software,Project expense 70
+71,1,2026-10-03,520.21,travel,Project expense 71
+72,2,2026-08-04,1616.17,data labeling,Project expense 72
+73,3,2026-01-27,1818.51,travel,Project expense 73
+74,4,2026-02-06,804.26,GPU cloud,Project expense 74
+75,5,2026-05-25,2225.9,software,Project expense 75
+76,6,2026-11-01,844.18,travel,Project expense 76
+77,7,2026-10-26,1403.27,software,Project expense 77
+78,8,2026-05-04,1907.9,data labeling,Project expense 78
+79,9,2026-07-31,956.74,GPU cloud,Project expense 79
+80,10,2026-09-04,755.72,software,Project expense 80
+81,1,2026-06-19,2234.77,travel,Project expense 81
+82,2,2026-06-17,913.69,data labeling,Project expense 82
+83,3,2026-09-06,1760.96,software,Project expense 83
+84,4,2026-10-11,740.13,GPU cloud,Project expense 84
+85,5,2026-09-17,289.42,data labeling,Project expense 85
+86,6,2026-07-25,805.04,GPU cloud,Project expense 86
+87,7,2026-04-21,887.01,software,Project expense 87
+88,8,2026-07-12,1170.2,travel,Project expense 88
+89,9,2026-06-30,1755.44,software,Project expense 89
+90,10,2026-10-04,201.65,software,Project expense 90
+91,1,2026-09-18,2495.56,software,Project expense 91
+92,2,2026-10-25,2452.07,GPU cloud,Project expense 92
+93,3,2026-02-02,1710.84,travel,Project expense 93
+94,4,2026-07-24,1331.41,data labeling,Project expense 94
+95,5,2026-02-27,442.67,travel,Project expense 95
+96,6,2026-03-16,402.95,data labeling,Project expense 96
+97,7,2026-10-17,1648.39,software,Project expense 97
+98,8,2026-08-01,2378.72,GPU cloud,Project expense 98
+99,9,2026-10-20,468.25,travel,Project expense 99
+100,10,2026-09-14,992.83,GPU cloud,Project expense 100
+101,1,2026-08-28,430.47,software,Project expense 101
+102,2,2026-06-23,854.53,software,Project expense 102
+103,3,2026-05-02,2405.25,GPU cloud,Project expense 103
+104,4,2026-04-24,1297.71,travel,Project expense 104
+105,5,2026-04-13,728.26,software,Project expense 105
+106,6,2026-09-04,1171.06,software,Project expense 106
+107,7,2026-09-25,2299.55,travel,Project expense 107
+108,8,2026-06-15,394.33,GPU cloud,Project expense 108
+109,9,2026-09-11,514.38,travel,Project expense 109
+110,10,2026-07-04,2045.23,software,Project expense 110
+111,1,2026-10-15,933.82,GPU cloud,Project expense 111
+112,2,2026-09-09,1401.21,software,Project expense 112
+113,3,2026-03-16,1808.34,data labeling,Project expense 113
+114,4,2026-07-23,1321.01,GPU cloud,Project expense 114
+115,5,2026-05-25,2000.96,data labeling,Project expense 115
+116,6,2026-09-26,1285.65,software,Project expense 116
+117,7,2026-08-20,1473.47,travel,Project expense 117
+118,8,2026-09-13,411.45,GPU cloud,Project expense 118
+119,9,2026-06-04,842.3,travel,Project expense 119
+120,10,2026-10-24,1085.91,travel,Project expense 120
+121,1,2026-08-29,277.0,software,Project expense 121
+122,2,2026-10-26,278.0,travel,Project expense 122
+123,3,2026-09-16,926.84,data labeling,Project expense 123
+124,4,2026-03-26,1138.28,GPU cloud,Project expense 124
+125,5,2026-04-16,1343.45,software,Project expense 125
+126,6,2026-04-19,488.72,data labeling,Project expense 126
+127,7,2026-06-28,2373.96,software,Project expense 127
+128,8,2026-05-15,701.45,software,Project expense 128
+129,9,2026-06-20,1600.05,GPU cloud,Project expense 129
+130,10,2026-10-18,1638.37,data labeling,Project expense 130
+131,1,2026-02-03,1680.96,software,Project expense 131
+132,2,2026-09-16,198.87,GPU cloud,Project expense 132
+133,3,2026-02-05,209.11,software,Project expense 133
+134,4,2026-05-06,1940.7,travel,Project expense 134
+135,5,2026-02-27,1295.29,software,Project expense 135
+136,6,2026-08-19,2395.96,travel,Project expense 136
+137,7,2026-06-02,2031.25,travel,Project expense 137
+138,8,2026-07-10,1188.51,GPU cloud,Project expense 138
+139,9,2026-06-28,1155.05,travel,Project expense 139
+140,10,2026-10-08,589.66,data labeling,Project expense 140
+141,1,2026-04-17,2167.56,software,Project expense 141
+142,2,2026-05-27,2440.9,data labeling,Project expense 142
+143,3,2026-07-03,1335.95,GPU cloud,Project expense 143
+144,4,2026-07-01,680.17,GPU cloud,Project expense 144
+145,5,2026-06-28,1179.03,data labeling,Project expense 145
+146,6,2026-04-01,221.45,travel,Project expense 146
+147,7,2026-11-08,1576.91,data labeling,Project expense 147
+148,8,2026-06-04,2052.35,software,Project expense 148
+149,9,2026-07-06,1931.49,travel,Project expense 149
+150,10,2026-10-21,1220.36,software,Project expense 150
+151,1,2026-07-20,155.62,travel,Project expense 151
+152,2,2026-08-17,1197.35,data labeling,Project expense 152
+153,3,2026-04-15,1500.03,GPU cloud,Project expense 153
+154,4,2026-02-13,775.26,travel,Project expense 154
+155,5,2026-07-08,1388.06,GPU cloud,Project expense 155
+156,6,2026-06-26,421.44,software,Project expense 156
+157,7,2026-10-04,977.87,travel,Project expense 157
+158,8,2026-07-27,208.58,GPU cloud,Project expense 158
+159,9,2026-10-11,1448.36,software,Project expense 159
+160,10,2026-10-31,792.64,travel,Project expense 160
