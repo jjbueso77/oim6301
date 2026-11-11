@@ -414,6 +414,77 @@ def _(mo):
     return
 
 
+@app.cell
+def _(ask):
+    ask("""
+    SELECT county, COUNT(*) AS town_count
+    FROM towns
+    GROUP BY county
+    ORDER BY town_count DESC
+    """)
+
+    return
+
+
+@app.cell
+def _(ask):
+    ask("""
+    SELECT SUM(town_count) AS total_towns
+    FROM (
+        SELECT county, COUNT(*) AS town_count
+        FROM towns
+        GROUP BY county
+    ) AS county_counts
+    """)
+
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The total is 351 because each town belongs to one county. GROUP BY groups the towns by county, and COUNT(*) counts the number of towns in each group. When we add all those county counts together, we get the total number of rows in the towns table.
+    """)
+    return
+
+
+@app.cell
+def _(ask):
+    ask("""
+    SELECT
+        county,
+        SUM(population) AS total_population,
+        SUM(CASE
+            WHEN average_single_family_bill_dollars > 10000
+            THEN population
+            ELSE 0
+        END) AS population_over_10000,
+        ROUND(
+            100.0 * SUM(CASE
+                WHEN average_single_family_bill_dollars > 10000
+                THEN population
+                ELSE 0
+            END) / NULLIF(SUM(population), 0),
+            2
+        ) AS percentage_over_10000
+    FROM towns
+    GROUP BY county
+    ORDER BY county
+    """)
+
+    return
+
+
+@app.cell
+def _(ask):
+    ask("""
+    SELECT SUM(population) AS total_population
+    FROM towns
+    """)
+
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -462,6 +533,31 @@ def _(ask, mo, requests):
         _path.write_bytes(_reply.content)
     orders_file = _path.as_posix()
     ask(f"SELECT count(*) AS orders FROM '{orders_file}'")
+    return (orders_file,)
+
+
+@app.cell
+def _(ask, orders_file):
+    ask(f"""
+    SELECT COUNT(DISTINCT ShipCountry) AS total_countries
+    FROM '{orders_file}'
+    """)
+
+    return
+
+
+@app.cell
+def _(ask, orders_file):
+    ask(f"""
+    SELECT
+        ShipCountry,
+        COUNT(*) AS total_orders,
+        ROUND(SUM(Freight), 2) AS total_freight
+    FROM '{orders_file}'
+    GROUP BY ShipCountry
+    ORDER BY total_freight DESC
+    """)
+
     return
 
 

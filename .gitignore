@@ -183,4 +183,4 @@ __marimo__/
 
 *.duckdb*
 
-
+.env
